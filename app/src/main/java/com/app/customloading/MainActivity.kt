@@ -21,4 +21,19 @@ class MainActivity : AppCompatActivity() {
     private fun startAnimation(){
         dots_progress.startAnimations()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopAnimation()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAnimation()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        startAnimation()
+    }
 }

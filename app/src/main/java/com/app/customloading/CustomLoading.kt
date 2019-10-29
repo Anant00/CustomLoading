@@ -18,6 +18,7 @@ class CustomLoading: View {
     private var actualDotRadius = 8
     private  lateinit var  typedArray: TypedArray
     private var bigDotRadius = 13
+    var isAnimationRunning = false
     private val tag by lazy{
         this::class.java.simpleName
     }
@@ -119,10 +120,12 @@ class CustomLoading: View {
 
             override fun onAnimationStart(animation: Animation) {
                 Log.d(tag, "onAnimationStart: ")
+                isAnimationRunning = true
             }
 
             override fun onAnimationEnd(animation: Animation) {
                 Log.d(tag, "onAnimationEnd: ")
+                isAnimationRunning = false
 
             }
 
@@ -143,7 +146,9 @@ class CustomLoading: View {
     }
 
     fun startAnimations(){
-        startAnimation()
+        if (!isAnimationRunning) {
+            startAnimation()
+        }
     }
 
     companion object {

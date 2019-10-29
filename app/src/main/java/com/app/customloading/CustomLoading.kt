@@ -22,7 +22,7 @@ class CustomLoading: View {
     private val tag by lazy{
         this::class.java.simpleName
     }
-    private val bounceAnimation by lazy { BounceAnimation() }
+    private val loadingAnimation by lazy { LoadingAnimation() }
     private var dotPosition: Int = 0
     private var dotCount = DEF_COUNT
     private var timeout = DEF_TIMEOUT
@@ -112,11 +112,11 @@ class CustomLoading: View {
     }
 
     private fun startAnimation() {
-        bounceAnimation.duration = 500L
-        bounceAnimation.repeatCount = Animation.INFINITE
-        bounceAnimation.fillAfter = true
-        bounceAnimation.interpolator = DecelerateInterpolator()
-        bounceAnimation.setAnimationListener(object : Animation.AnimationListener {
+        loadingAnimation.duration = DEF_DURATION
+        loadingAnimation.repeatCount = Animation.INFINITE
+        loadingAnimation.fillAfter = true
+        loadingAnimation.interpolator = DecelerateInterpolator()
+        loadingAnimation.setAnimationListener(object : Animation.AnimationListener {
 
             override fun onAnimationStart(animation: Animation) {
                 Log.d(tag, "onAnimationStart: ")
@@ -135,10 +135,10 @@ class CustomLoading: View {
                 }
             }
         })
-        startAnimation(bounceAnimation)
+        startAnimation(loadingAnimation)
     }
 
-    private inner class BounceAnimation : Animation() {
+    private inner class LoadingAnimation : Animation() {
         override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
             super.applyTransformation(interpolatedTime, t)
             invalidate()
@@ -152,7 +152,7 @@ class CustomLoading: View {
     }
 
     companion object {
-
+        private const val DEF_DURATION = 500L
         private const val MIN_COUNT = 1
         private const val DEF_COUNT = 3
         private const val MAX_COUNT = 5

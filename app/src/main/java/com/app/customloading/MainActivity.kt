@@ -2,6 +2,7 @@ package com.app.customloading
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -10,8 +11,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnStart.setOnClickListener { startAnimation() }
-        btnStop.setOnClickListener { stopAnimation() }
+        btnStart.setOnClickListener {
+            if (dots_progress.isAnimationRunning){
+                Toast.makeText(this, "Animation Already Running", Toast.LENGTH_LONG).show()
+            }else{
+                startAnimation()
+            }
+        }
+
+        btnStop.setOnClickListener {
+            if (!dots_progress.isAnimationRunning){
+                Toast.makeText(this, "Animation Already Stopped", Toast.LENGTH_LONG).show()
+            }else{
+                stopAnimation()
+            }
+        }
     }
 
     private fun stopAnimation(){
